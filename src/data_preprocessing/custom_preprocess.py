@@ -26,7 +26,8 @@ def custom_preprocess(df, dev_size: float = 0.15, test_size: float = 0.15, check
                     raise OverflowError(
                         f'type of text "{text}" (of index {i}) is not str. You can use df.dropna()')
 
-        print('Converting texts into matrices... (It may take a while, depending on df size)')
+        print(
+            'Converting texts into matrices... (It may take a while, depending on df size)')
 
         nlp = spacy.load('en_core_web_lg')
 
@@ -39,11 +40,10 @@ def custom_preprocess(df, dev_size: float = 0.15, test_size: float = 0.15, check
         texts_matrices = [prepare_text(text) for text in texts]
 
         X = pad_sequence(texts_matrices, batch_first=True)
-        y = torch.tensor(labels)
+        y = torch.tensor(labels, dtype=torch.float32)
 
         X = X.movedim(1, 2)
-        
-        
+
         half = (len(df) // 2)
         X0, X1 = X[:half], X[half:]
         y0, y1 = y[:half], y[half:]
@@ -52,13 +52,11 @@ def custom_preprocess(df, dev_size: float = 0.15, test_size: float = 0.15, check
         bord1 = int(len(X) * (1 - (dev_size + test_size))) // 2
         bord2 = int(len(X) * (1 - test_size)) // 2
 
-
         X_train = torch.concat([X0[:bord1], X1[:bord1]])
         y_train = torch.concat([y0[:bord1], y1[:bord1]])
         perm = torch.randperm(len(X_train))
         X_train = X_train[perm]
         y_train = y_train[perm]
-
 
         X_dev = torch.concat([X0[bord1:bord2], X1[bord1:bord2]])
         y_dev = torch.concat([y0[bord1:bord2], y1[bord1:bord2]])
@@ -66,19 +64,14 @@ def custom_preprocess(df, dev_size: float = 0.15, test_size: float = 0.15, check
         X_dev = X_dev[perm]
         y_dev = y_dev[perm]
 
-
         X_test = torch.concat([X0[bord2:], X1[bord2:]])
         y_test = torch.concat([y0[bord2:], y1[bord2:]])
         perm = torch.randperm(len(X_test))
         X_test = X_test[perm]
         y_test = y_test[perm]
 
-
         print('Done! returned: (X_train, X_dev, X_test, y_train, y_dev, y_test). Please, ensure that u received them properly (check variable names)')
         return (X_train, X_dev, X_test, y_train, y_dev, y_test)
-
-
-
 
     else:
         print('Processing started!')
@@ -105,7 +98,7 @@ def custom_preprocess(df, dev_size: float = 0.15, test_size: float = 0.15, check
         texts_matrices = [prepare_text(text) for text in texts]
 
         X = pad_sequence(texts_matrices, batch_first=True)
-        y = torch.tensor(labels)
+        y = torch.tensor(labels, dtype=torch.float32)
 
         X = X.movedim(1, 2)
 

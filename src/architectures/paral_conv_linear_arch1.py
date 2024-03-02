@@ -6,7 +6,7 @@ from submodules.linear_layers_list import LinearLayersList
 
 
 class Parallel1DConvsLinearClass(nn.Module):
-    def __init__(self, input_channels: int, output_size: int = 1, kernel_sizes: List[int] = [3, 4, 5], out_channels_per_kernel: int = 64, linear_hidden_sizes: List[int] = [256, 256, 1]):
+    def __init__(self, input_channels: int, kernel_sizes: List[int] = [3, 4, 5], out_channels_per_kernel: int = 64, linear_hidden_sizes: List[int] = [256, 256, 1]):
         super().__init__()
 
         #  Set output activation function (for binary - sigmoid, for multiclass - softmax)
