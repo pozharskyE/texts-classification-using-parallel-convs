@@ -23,4 +23,4 @@ Parallel1DConvsLinearClass. Parallel convolutions layer => flatten layer => mult
 
 -   for data processing - custom functions written in python (src/data_preprocessing/)
 -   for transforming texts into a matrices - word embeddings by spacy's 'en_core_web_lg'
--   utils/live_plot.py - is just minitool written by myself for easy visualisation of cost(loss) function value changes in real time (during training) so I could have more in-depth understanding of what's happening during training process (it really helps)
+-   utils/live_plot.py - is just minitool written by myself for easy visualisation of cost(loss) function value changes in real time (during training) so I could have more in-depth understanding of what's happening during training process (it really helps).
