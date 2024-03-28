@@ -5,6 +5,8 @@ import spacy
 import torch
 from torch.nn.utils.rnn import pad_sequence
 
+torch.manual_seed(42)
+
 
 def custom_preprocess(df, dev_size: float = 0.15, test_size: float = 0.15, check_nan: bool = True, even_dist: bool = True):
 
@@ -31,13 +33,17 @@ def custom_preprocess(df, dev_size: float = 0.15, test_size: float = 0.15, check
 
         nlp = spacy.load('en_core_web_lg')
 
-        def prepare_text(text):
-            doc = nlp(text)
-            vectors = torch.tensor(
-                np.array([token.vector for token in doc]))
-            return vectors
+        def prepare_texts(texts):
+            docs = list(nlp.pipe(texts, batch_size=1000))
 
-        texts_matrices = [prepare_text(text) for text in texts]
+            texts_matrices = []
+            for doc in docs:
+                texts_matrices.append(torch.tensor(
+                    np.array([token.vector for token in doc]), dtype=torch.float32))
+
+            return texts_matrices
+
+        texts_matrices = prepare_texts(texts)
 
         X = pad_sequence(texts_matrices, batch_first=True)
         y = torch.tensor(labels, dtype=torch.float32)

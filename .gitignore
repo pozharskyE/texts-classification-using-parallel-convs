@@ -1,0 +1,4 @@
+__pycache__
+data/*
+cached_subsets
+cache_code_bin/text_matrices.pt
