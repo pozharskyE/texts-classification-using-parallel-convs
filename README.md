@@ -5,7 +5,7 @@
 # How to quickly review the result of project
 
 1. go to `final_test.ipynb` file and see the results (scroll to the end of file)
-2. then you can go to `notebooks/paral_conv_linear.ipynb` to look more deeply on how I trained the-final-choice model most reliable model with approximately 93% accuracy on filtered and sampled data
+2. then you can go to `notebooks/paral_conv_linear.ipynb` to look more deeply on how I trained the-final-choice, most reliable model with approximately 93% accuracy on filtered and sampled data
 3. Then you can go even deeper - go to `src/architectures` and explore
    `paral_conv_linear_arch1.py` and its submodule - `parallel_1dconvs_layer.py` in `src/architectures/submodules/`
 
